@@ -61,13 +61,28 @@ body {
 
 .progress-step {
   flex: 1;
+}
+
+.progress-bar {
   height: 6px;
   border-radius: 3px;
   background: var(--border);
 }
 
-.progress-step.active {
+.progress-step.active .progress-bar {
   background: var(--accent);
+}
+
+.progress-label {
+  font-size: 0.7em;
+  margin-top: 4px;
+  text-align: center;
+  color: color-mix(in srgb, var(--fg) 55%, transparent);
+}
+
+.progress-step.active .progress-label {
+  color: var(--accent);
+  font-weight: bold;
 }
 
 h2 {

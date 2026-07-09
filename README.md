@@ -78,4 +78,4 @@ AI-Learning-Workshop/
 
 - 初期テーマ: GitHub
 - 最初の教材: `GH-001`（GitHubとは何か）
-- ステータス: 構成・テンプレート・運用設計・GH-001サンプルまで実装済み（`status: draft`）。`game/`はGH-001固定の試作v0（content-loader/engine/ui）を実装済みだが、ブラウザでの目視確認・テーマ選択・複数教材対応は未実装。詳細は[game/README.md](game/README.md)を参照。
+- ステータス: 構成・テンプレート・運用設計・GH-001サンプルまで実装済み（`status: draft`）。`game/`はGH-001固定の試作v0（content-loader/engine/ui）を実装済みで、ブラウザでの目視確認も完了（2026-07-09）。テーマ選択・複数教材対応は未実装。詳細は[game/README.md](game/README.md)を参照。

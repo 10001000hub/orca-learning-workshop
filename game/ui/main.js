@@ -9,13 +9,20 @@ function escapeHtml(text) {
   return String(text)
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
 }
 
 function renderProgress(activeIndex) {
   const stages = ["Lesson", "Quiz", "Workshop", "Done"];
   return `<div class="progress">${stages
-    .map((_, i) => `<div class="progress-step${i <= activeIndex ? " active" : ""}"></div>`)
+    .map(
+      (name, i) => `
+        <div class="progress-step${i <= activeIndex ? " active" : ""}">
+          <div class="progress-bar"></div>
+          <div class="progress-label">${name}</div>
+        </div>`
+    )
     .join("")}</div>`;
 }
 
@@ -89,6 +96,10 @@ function renderQuizStage() {
   }
 }
 
+// workshopの手順には「レッスンを読み返す」指示が含まれるため、進行を保ったまま
+// レッスン本文を再表示できる導線を用意する(UI層のみの状態でengineには持たせない)。
+let lessonReviewOpen = false;
+
 function renderWorkshopStage() {
   const step = GameEngine.currentWorkshopStep(session);
   const total = session.content.workshop.steps.length;
@@ -100,11 +111,25 @@ function renderWorkshopStage() {
       <p>${escapeHtml(step.success_check)}</p>
       <div class="hint">ヒント: ${escapeHtml(step.hint)}</div>
       <div class="actions">
+        <button id="toggle-lesson" class="secondary">${lessonReviewOpen ? "レッスンを閉じる" : "レッスンを読み返す"}</button>
         <button id="confirm-step">確認しました</button>
       </div>
     </div>
+    ${
+      lessonReviewOpen
+        ? `<div class="card lesson-review">
+             <div class="stage-label">レッスンの読み返し</div>
+             ${session.content.lessonHtml}
+           </div>`
+        : ""
+    }
   `;
+  document.getElementById("toggle-lesson").addEventListener("click", () => {
+    lessonReviewOpen = !lessonReviewOpen;
+    renderWorkshopStage();
+  });
   document.getElementById("confirm-step").addEventListener("click", () => {
+    lessonReviewOpen = false;
     GameEngine.confirmWorkshopStep(session);
     render();
   });
@@ -146,7 +171,7 @@ function renderError(err) {
     <div class="card">
       <div class="stage-label">読み込みエラー</div>
       <p class="error">${escapeHtml(err.message)}</p>
-      <p>ローカルサーバー経由（例: <code>python3 -m http.server</code>）で <code>game/ui/index.html</code> を開いているか確認してください。<code>file://</code> で直接開くと教材ファイルの読み込みがブラウザにブロックされます。</p>
+      <p>ローカルサーバー経由（Windows: <code>py -m http.server</code> / WSL・Linux: <code>python3 -m http.server</code>）で <code>game/ui/index.html</code> を開いているか確認してください。<code>file://</code> で直接開くと教材ファイルの読み込みがブラウザにブロックされます。</p>
     </div>
   `;
 }

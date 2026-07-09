@@ -16,8 +16,16 @@ GH-001固定（テーマ・教材ID選択UIはまだない）。lesson表示 →
 `fetch`でcurriculumファイルを読むため、`file://`で直接開くとブラウザにブロックされる。`AI-Learning-Workshop/`直下でHTTPサーバーを立てて開くこと。
 
 ```bash
+# WSL / Linux
 cd AI-Learning-Workshop
 python3 -m http.server 8420
+# ブラウザで http://localhost:8420/game/ui/index.html を開く
+```
+
+```powershell
+# Windows (PowerShell。Pythonランチャー py が必要)
+cd AI-Learning-Workshop
+py -m http.server 8420
 # ブラウザで http://localhost:8420/game/ui/index.html を開く
 ```
 

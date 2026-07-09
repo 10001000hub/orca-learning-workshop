@@ -6,7 +6,9 @@ const ContentLoader = (() => {
     if (!res.ok) {
       throw new Error(`教材ファイルの読み込みに失敗しました: ${path} (HTTP ${res.status})`);
     }
-    return res.text();
+    // Windowsでautocrlf=trueのままcloneするとCRLFになり、metadata.yamlの
+    // 行頭アンカー正規表現(os/success_criteria)がマッチしなくなるため必ずLFに正規化する。
+    return (await res.text()).replace(/\r\n/g, "\n");
   }
 
   async function fetchJson(path) {
