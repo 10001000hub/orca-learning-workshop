@@ -10,10 +10,10 @@
 
 ## 構成
 
-- `engine/`: lesson → quiz → workshop の進行ロジック（未実装。READMEのみ）。
-- `ui/`: 画面表示（未実装。READMEのみ）。
-- `content-loader/`: curriculumのYAML/JSON/Markdownを読み込み、ゲーム内部のデータ構造に変換する処理（未実装。READMEのみ）。
+- `engine/`: lesson → quiz → workshop → done の進行ロジック。詳細は [engine/README.md](engine/README.md)。
+- `ui/`: 画面表示（vanilla HTML/CSS/JS）。詳細は [ui/README.md](ui/README.md)。
+- `content-loader/`: curriculumのYAML/JSON/Markdownを読み込み、ゲーム内部のデータ構造に変換する処理。詳細は [content-loader/README.md](content-loader/README.md)。
 
-## 現在の状態
+## 現在の状態（試作v0）
 
-本バージョンでは実装を行っていない。まずは `research → knowledge → curriculum` の教材基盤とeval-loop運用設計を固めることを優先している。実装は [docs/ROADMAP.md](../docs/ROADMAP.md) のフェーズ2で着手する。
+GH-001固定の一本道フローとして最小実装した。`content-loader`/`engine`はNode.js上で実データを使い動作確認済み。`ui`はブラウザでの目視確認が未実施（[ui/README.md](ui/README.md)の起動方法を参照）。テーマ・教材IDの選択UI、`status`による読み込み制御、複数教材対応は未実装（[docs/ROADMAP.md](../docs/ROADMAP.md)フェーズ2以降）。

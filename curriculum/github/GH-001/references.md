@@ -14,4 +14,4 @@
 | lesson.md「Repositoryという言葉」 | F4 |
 | quiz.json GH-001-Q1 | F1 |
 | quiz.json GH-001-Q2 | F4 |
-| workshop.json step-2 | F1 |
+| workshop.json step-2 | F1, F4 |

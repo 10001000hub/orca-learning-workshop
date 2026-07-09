@@ -1,0 +1,166 @@
+:root {
+  color-scheme: light dark;
+  --fg: #1a1a1a;
+  --bg: #fafafa;
+  --card-bg: #ffffff;
+  --border: #d8d8d8;
+  --accent: #2563eb;
+  --correct: #16a34a;
+  --incorrect: #dc2626;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fg: #f0f0f0;
+    --bg: #17181c;
+    --card-bg: #23252b;
+    --border: #3a3c44;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Hiragino Sans", "Yu Gothic", "Meiryo", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.7;
+}
+
+#app {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 24px 16px 64px;
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 16px;
+}
+
+.stage-label {
+  font-size: 0.8em;
+  color: var(--accent);
+  font-weight: bold;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.progress {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.progress-step {
+  flex: 1;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--border);
+}
+
+.progress-step.active {
+  background: var(--accent);
+}
+
+h2 {
+  margin-top: 0;
+}
+
+ul {
+  padding-left: 1.3em;
+}
+
+button {
+  font-size: 1em;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: white;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button.secondary {
+  background: transparent;
+  color: var(--accent);
+}
+
+.choice-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 16px 0;
+}
+
+.choice-item button {
+  width: 100%;
+  text-align: left;
+  background: var(--card-bg);
+  color: var(--fg);
+  border: 1px solid var(--border);
+}
+
+.choice-item button:hover:not(:disabled) {
+  border-color: var(--accent);
+}
+
+.choice-item button.correct {
+  border-color: var(--correct);
+  background: color-mix(in srgb, var(--correct) 15%, var(--card-bg));
+}
+
+.choice-item button.incorrect {
+  border-color: var(--incorrect);
+  background: color-mix(in srgb, var(--incorrect) 15%, var(--card-bg));
+}
+
+.explanation {
+  margin-top: 16px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--accent) 10%, var(--card-bg));
+  font-size: 0.95em;
+}
+
+.hint {
+  margin-top: 12px;
+  font-size: 0.9em;
+  color: color-mix(in srgb, var(--fg) 65%, transparent);
+}
+
+.actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.error {
+  color: var(--incorrect);
+  white-space: pre-wrap;
+}
+
+.score-line {
+  font-size: 1.1em;
+  font-weight: bold;
+  margin: 12px 0;
+}
+
+.criteria-list li {
+  margin-bottom: 4px;
+}

@@ -2,23 +2,7 @@
 
 GH-001をeval-loopで改善するための実行例。初期段階では `/run-eval-loop-fork` を使う（理由は[docs/EVAL_LOOP_GUIDE.md](../../docs/EVAL_LOOP_GUIDE.md)参照）。
 
-## 全体を通した実行例（Final Pack向け）
-
-```text
-/run-eval-loop-fork
-task:
-GitHub初心者教材 GH-001 を、research → facts → lesson → quiz → workshop → review → final pack の順に改善する。
-ただし、各工程は個別のeval-loop対象として扱い、事実根拠のないUI操作やボタン名は不合格とする。
-
-criteria:
-全体整合性, バージョン一致, 出典一致, ゲーム実装可能性, 更新容易性
-
-threshold:
-90
-
-max:
-12
-```
+**実行時は必ず下記「工程別の実行例」を工程ごとに個別実行すること。** `docs/EVAL_LOOP_GUIDE.md`が禁止する「1つの巨大なeval-loopタスク」を避けるため、research/facts/lesson/quiz/workshop/beginner QA/final packを一括で生成・改善するeval-loopは実行しない。
 
 ## 工程別の実行例
 
@@ -90,6 +74,19 @@ max: 8
 /run-eval-loop-fork
 task: eval/tasks/github-final-pack.md の内容に従い curriculum/github/GH-001/ 一式の整合性を最終確認する
 criteria: eval/criteria/final-pack.criteria.md
+threshold: 90
+max: 12
+```
+
+## 参考: 全体像を俯瞰する例（単独では実行しない）
+
+以下は7工程がすべて閾値を通過した後、Final Pack Loop 1回の中でどのような観点を見るかを俯瞰するための参考例であり、これ自体を1つのeval-loopとして起動するものではない。実際の生成・改善は必ず上記「工程別の実行例」を工程ごとに個別実行すること。
+
+```text
+参考（Final Pack Loop実行時のイメージ。単独実行しない）:
+task: eval/tasks/github-final-pack.md の内容に従い、research/facts/lesson/quiz/workshop/reviewが
+      揃った状態のGH-001一式の整合性を最終確認する（生成・改善は行わない。確認のみ）
+criteria: 全体整合性, バージョン一致, 出典一致, ゲーム実装可能性, 更新容易性
 threshold: 90
 max: 12
 ```

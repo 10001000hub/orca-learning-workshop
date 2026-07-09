@@ -2,10 +2,11 @@
 .SYNOPSIS
     curriculum配下の教材ディレクトリの整合性を検証する初期版スクリプト。
 .DESCRIPTION
-    curriculum/<theme>/<ID>/ ごとに、必須ファイル（metadata.yaml, quiz.json,
+    curriculum/<theme>/<ID>/ ごとに、必須ファイル（metadata.yaml, lesson.md, quiz.json,
     workshop.json, references.md）の存在、metadata.yaml内の必須キー
-    （id, title, os, status, learning_objective）の有無、quiz.json/workshop.json
-    がJSONとして妥当かを確認する。
+    （id, title, os, status, learning_objective）の有無とosがWindowsのみであること、
+    quiz.json/workshop.jsonがJSONとして妥当か、quiz.jsonの各answerがchoicesに実在するか、
+    workshop.jsonの各success_checkが空でないかを確認する。
 .PARAMETER CurriculumPath
     検証対象の curriculum ディレクトリ。省略時はこのスクリプトから見た ../curriculum。
 .EXAMPLE
@@ -19,7 +20,7 @@ param(
 $ErrorActionPreference = "Stop"
 $script:exitCode = 0
 
-$requiredFiles = @("metadata.yaml", "quiz.json", "workshop.json", "references.md")
+$requiredFiles = @("metadata.yaml", "lesson.md", "quiz.json", "workshop.json", "references.md")
 $requiredMetadataKeys = @("id", "title", "os", "status", "learning_objective")
 
 function Write-Result {
@@ -66,13 +67,30 @@ foreach ($dir in $lessonDirs) {
             $found = [regex]::IsMatch($metadataContent, $pattern)
             Write-Result $found "metadata.yaml に '$key' キーがある"
         }
+
+        # no_mac_instruction veto条件の機械的裏付け: os配下にWindows以外の値がないか確認する。
+        $osMatch = [regex]::Match($metadataContent, "(?ms)^os:[ \t]*\r?\n((?:^[ \t]+-[^\r\n]*\r?\n?)+)")
+        if ($osMatch.Success) {
+            $osValues = $osMatch.Groups[1].Value -split '\r?\n' |
+                Where-Object { $_.Trim() -match "^-" } |
+                ForEach-Object { ($_ -replace '^[ \t]*-[ \t]*', '').Trim() }
+            $nonWindows = $osValues | Where-Object { $_ -ne "Windows" }
+            Write-Result ($nonWindows.Count -eq 0) "metadata.yaml: os にWindows以外の値がない（現在値: $($osValues -join ', ')）"
+        }
     }
 
     $quizPath = Join-Path $dir.FullName "quiz.json"
     if (Test-Path $quizPath) {
         try {
-            Get-Content -Path $quizPath -Raw -Encoding UTF8 | ConvertFrom-Json | Out-Null
+            $quiz = Get-Content -Path $quizPath -Raw -Encoding UTF8 | ConvertFrom-Json
             Write-Result $true "quiz.json はJSONとして妥当"
+            foreach ($q in $quiz.questions) {
+                # 正答が一意かどうかの意味的判断はeval-loop側の役割。ここでは
+                # answerフィールドがchoicesに実在するかという構造的整合性のみを見る。
+                $choiceIds = @($q.choices | ForEach-Object { $_.id })
+                $answerExists = $choiceIds -contains $q.answer
+                Write-Result $answerExists "quiz.json: $($q.id) の answer('$($q.answer)') が choices に存在する"
+            }
         }
         catch {
             Write-Result $false "quiz.json はJSONとして妥当（エラー: $($_.Exception.Message)）"
@@ -82,8 +100,14 @@ foreach ($dir in $lessonDirs) {
     $workshopPath = Join-Path $dir.FullName "workshop.json"
     if (Test-Path $workshopPath) {
         try {
-            Get-Content -Path $workshopPath -Raw -Encoding UTF8 | ConvertFrom-Json | Out-Null
+            $workshop = Get-Content -Path $workshopPath -Raw -Encoding UTF8 | ConvertFrom-Json
             Write-Result $true "workshop.json はJSONとして妥当"
+            foreach ($step in $workshop.steps) {
+                # success_checkの曖昧さ自体の判断はeval-loop側の役割。ここでは
+                # 空でないことだけを機械的に確認する。
+                $hasCheck = -not [string]::IsNullOrWhiteSpace($step.success_check)
+                Write-Result $hasCheck "workshop.json: $($step.id) の success_check が空でない"
+            }
         }
         catch {
             Write-Result $false "workshop.json はJSONとして妥当（エラー: $($_.Exception.Message)）"
