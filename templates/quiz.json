@@ -1,0 +1,29 @@
+{
+  "lesson_id": "<ID>",
+  "questions": [
+    {
+      "id": "<ID>-Q1",
+      "type": "single_choice",
+      "question": "<問題文>",
+      "choices": [
+        {
+          "id": "A",
+          "text": "<選択肢A>"
+        },
+        {
+          "id": "B",
+          "text": "<選択肢B>"
+        },
+        {
+          "id": "C",
+          "text": "<選択肢C>"
+        }
+      ],
+      "answer": "A",
+      "explanation": "<正解の理由（factsに基づく）>",
+      "source_refs": [
+        "research/<theme>/<ID>/references.md"
+      ]
+    }
+  ]
+}

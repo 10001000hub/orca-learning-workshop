@@ -1,0 +1,20 @@
+{
+  "lesson_id": "<ID>",
+  "type": "guided_observation",
+  "environment": {
+    "os": "Windows",
+    "requires_browser": true
+  },
+  "steps": [
+    {
+      "id": "step-1",
+      "instruction": "<指示文>",
+      "success_check": "<初心者・観測者が明確に判定できる成功基準>",
+      "hint": "<つまずいた場合のヒント>"
+    }
+  ],
+  "veto_notes": [
+    "未検証のボタン名は使わない",
+    "UI操作を要求する場合は、必ず実機確認済みのreferencesを持たせる"
+  ]
+}

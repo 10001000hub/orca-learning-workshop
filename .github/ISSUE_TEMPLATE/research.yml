@@ -1,0 +1,35 @@
+name: 一次資料の追加・更新
+description: research配下に追加すべき一次資料や、実機確認結果を共有する
+title: "[Research] "
+labels:
+  - research
+body:
+  - type: input
+    id: theme-id
+    attributes:
+      label: テーマ / 教材ID
+      description: 例 github / GH-001（新規テーマの場合はテーマ名のみでも可）
+    validations:
+      required: true
+  - type: textarea
+    id: source
+    attributes:
+      label: 一次資料の内容
+      description: 公式README・公式Docs・リリースノートのURLと、関連箇所の要約
+    validations:
+      required: true
+  - type: textarea
+    id: verification
+    attributes:
+      label: 実機確認の内容（実施した場合）
+      description: 確認したOS・ブラウザ・日時・実際に見えた画面や挙動
+    validations:
+      required: false
+  - type: checkboxes
+    id: env-check
+    attributes:
+      label: 環境確認
+      options:
+        - label: Windows環境での確認である（Mac固有の情報は含まない）
+    validations:
+      required: true

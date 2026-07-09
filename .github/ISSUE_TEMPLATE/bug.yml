@@ -1,0 +1,37 @@
+name: 不具合報告
+description: 教材内容の誤り、UI名称の不一致、スクリプトの不具合などを報告する
+title: "[Bug] "
+labels:
+  - bug
+body:
+  - type: input
+    id: target
+    attributes:
+      label: 対象（教材IDまたはファイルパス）
+      description: 例 GH-001 / scripts/validate-curriculum.ps1
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: 何が問題か
+      description: 実際のUI・実機との食い違い、JSONエラー、スクリプトの誤動作など具体的に
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期待される内容
+      description: 正しくはどうあるべきか。可能であれば根拠となる一次資料も添付
+    validations:
+      required: false
+  - type: dropdown
+    id: severity
+    attributes:
+      label: 重大度
+      options:
+        - Veto条件に該当（教材として不合格）
+        - 内容の誤り
+        - 軽微な誤字・表記ゆれ
+    validations:
+      required: true

@@ -1,0 +1,25 @@
+id: <ID>
+title: <タイトル>
+theme: <テーマ>
+os:
+  - Windows
+difficulty: 0
+estimated_time: <例: 5min>
+status: draft
+version:
+  target: <例: GitHub Web UI>
+  verified_on: null
+confidence: 0
+last_verified: null
+requires:
+  - Windows PC
+  - Web browser
+learning_objective: <この教材を終えたときに初心者ができるようになることを1文で>
+success_criteria:
+  - <達成基準1>
+  - <達成基準2>
+veto_checks:
+  - no_unverified_ui_instruction
+  - no_nonexistent_button
+  - no_mac_instruction
+  - answer_must_be_unique

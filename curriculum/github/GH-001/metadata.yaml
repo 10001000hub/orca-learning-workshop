@@ -1,0 +1,26 @@
+id: GH-001
+title: GitHubとは何か
+theme: GitHub
+os:
+  - Windows
+difficulty: 0
+estimated_time: 5min
+status: draft
+version:
+  target: GitHub Web UI
+  verified_on: null
+confidence: 0
+last_verified: null
+requires:
+  - Windows PC
+  - Web browser
+learning_objective: GitHubが何のためのサービスかを初心者が説明できる
+success_criteria:
+  - GitHubがコードやプロジェクトを保存・共有するサービスであると理解できる
+  - Repositoryという言葉を見たときに、プロジェクト置き場の意味だと分かる
+  - 次の実践教材でGitHub画面を開く準備ができる
+veto_checks:
+  - no_unverified_ui_instruction
+  - no_nonexistent_button
+  - no_mac_instruction
+  - answer_must_be_unique

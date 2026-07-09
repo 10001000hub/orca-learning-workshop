@@ -1,0 +1,26 @@
+{
+  "lesson_id": "GH-001",
+  "type": "guided_observation",
+  "environment": {
+    "os": "Windows",
+    "requires_browser": true
+  },
+  "steps": [
+    {
+      "id": "step-1",
+      "instruction": "Windowsのブラウザを開いてください。",
+      "success_check": "ブラウザが開いていることをユーザーが確認できる",
+      "hint": "Chrome、Edge、Firefoxのどれでも構いません。"
+    },
+    {
+      "id": "step-2",
+      "instruction": "GitHubというサービスが、プロジェクトを保存・共有する場所であることを確認してください。",
+      "success_check": "GitHubがプロジェクト管理に使われるサービスであると説明できる",
+      "hint": "このレッスンではまだアカウント操作やボタン操作は行いません。"
+    }
+  ],
+  "veto_notes": [
+    "未検証のボタン名は使わない",
+    "UI操作を要求する場合は、必ず実機確認済みのreferencesを持たせる"
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "lesson_id": "GH-001",
+  "questions": [
+    {
+      "id": "GH-001-Q1",
+      "type": "single_choice",
+      "question": "GitHubの説明として最も近いものはどれですか？",
+      "choices": [
+        {
+          "id": "A",
+          "text": "コードやプロジェクトを保存・共有するためのサービス"
+        },
+        {
+          "id": "B",
+          "text": "画像編集だけを行うアプリ"
+        },
+        {
+          "id": "C",
+          "text": "パソコンの電源を管理するWindows標準機能"
+        }
+      ],
+      "answer": "A",
+      "explanation": "GitHubは、コードやプロジェクトを保存・共有し、変更履歴を管理するために使われます。",
+      "source_refs": [
+        "research/github/GH-001/references.md"
+      ]
+    },
+    {
+      "id": "GH-001-Q2",
+      "type": "single_choice",
+      "question": "GitHubで使われる「Repository（リポジトリ）」という言葉の意味に最も近いものはどれですか？",
+      "choices": [
+        {
+          "id": "A",
+          "text": "パソコンのウイルス対策ソフトの名前"
+        },
+        {
+          "id": "B",
+          "text": "プロジェクトのファイル一式が置かれている場所"
+        },
+        {
+          "id": "C",
+          "text": "GitHubにログインするためのパスワード"
+        }
+      ],
+      "answer": "B",
+      "explanation": "リポジトリは、プロジェクトのファイルを保存しておく場所を指す言葉です。",
+      "source_refs": [
+        "research/github/GH-001/references.md"
+      ]
+    }
+  ]
+}

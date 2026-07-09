@@ -1,0 +1,39 @@
+name: 教材追加・修正
+description: curriculum配下の教材（lesson/quiz/workshop）の追加・修正を提案する
+title: "[Lesson] "
+labels:
+  - lesson
+body:
+  - type: input
+    id: lesson-id
+    attributes:
+      label: 対象教材ID
+      description: 例 GH-001（新規の場合は採番予定のIDを記載）
+    validations:
+      required: true
+  - type: textarea
+    id: purpose
+    attributes:
+      label: 目的
+      description: なぜこの教材の追加・修正が必要か
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: 想定する一次資料
+      description: 公式README・公式Docs・リリースノートなど、根拠にする資料のURL
+    validations:
+      required: true
+  - type: checkboxes
+    id: veto-check
+    attributes:
+      label: Veto条件の事前チェック
+      description: 該当しないことを確認してからチェックしてください
+      options:
+        - label: 公式資料・実機根拠のない内容を含めない
+        - label: 実際のUI名称と異なる記述を含めない
+        - label: 存在しないボタンを押させる手順を含めない
+        - label: Windows前提と矛盾する内容を含めない
+    validations:
+      required: true
