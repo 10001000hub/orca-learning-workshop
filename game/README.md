@@ -16,4 +16,4 @@
 
 ## 現在の状態
 
-ORCA-001を既定教材とする一本道フローを実装している。`content-loader`/`engine`はNode.js標準テストで継続検証する。`status: published`以外はUIが既定で拒否する。URLの`theme`と`lesson`で既存教材を指定できるが、初心者向け教材選択UIとコース進捗管理は未実装。
+ORCA-001〜005のコース一覧と一本道フローを実装している。`content-loader`/`engine`はNode.js標準テストで継続検証する。完了状態はブラウザのlocalStorageへ保存する。`status: published`以外はUIが既定で拒否し、レビュー用リンクだけ明示的に許可する。

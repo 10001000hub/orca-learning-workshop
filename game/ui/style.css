@@ -36,6 +36,20 @@ body {
   padding: 24px 16px 64px;
 }
 
+.hero { padding: 24px 4px 12px; }
+.hero h1 { margin: 0 0 8px; line-height: 1.25; }
+.course-list { list-style: none; padding: 0; display: grid; gap: 12px; }
+.course-card a { display: flex; align-items: center; gap: 14px; padding: 18px; color: var(--fg); text-decoration: none; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; }
+.course-card a:hover, .course-card a:focus-visible { border-color: var(--accent); }
+.course-card.completed a { border-color: var(--correct); }
+.course-number { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; color: white; background: var(--accent); font-weight: bold; flex: none; }
+.course-info { display: flex; flex: 1; flex-direction: column; }
+.course-info small { color: color-mix(in srgb, var(--fg) 60%, transparent); }
+.course-status { color: var(--accent); font-weight: bold; white-space: nowrap; }
+.completed .course-status { color: var(--correct); }
+.course-nav { display: flex; justify-content: space-between; margin-bottom: 16px; font-size: 0.85em; }
+.course-nav a { color: var(--accent); }
+
 .card {
   background: var(--card-bg);
   border: 1px solid var(--border);
@@ -124,6 +138,8 @@ button.secondary {
   background: transparent;
   color: var(--accent);
 }
+
+.button-link { padding: 10px 20px; border-radius: 8px; background: var(--accent); color: white; text-decoration: none; }
 
 .choice-list {
   list-style: none;

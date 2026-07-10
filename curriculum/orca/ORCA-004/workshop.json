@@ -1,0 +1,6 @@
+{"lesson_id":"ORCA-004","type":"guided_practice","environment":{"os":"Windows","requires_orca":true,"requires_github":true},"steps":[
+  {"id":"step-1","instruction":"Codexへ「Gitの状態、現在のブランチ、remoteの有無を調べ、秘密情報らしいファイルがないか確認してください。まだ外部へ送信しないでください」と依頼してください。","success_check":"状態、ブランチ、remote、秘密情報検査の結果が表示される","hint":"不明なファイルがあればpush前に内容を確認します。"},
+  {"id":"step-2","instruction":"remoteがない場合は、GitHub上に作るリポジトリ名と公開範囲を決め、Codexへ計画だけを出してもらってください。実行前に接続先URLと公開範囲を確認します。","success_check":"リポジトリ名、公開または非公開、接続先が明示される","hint":"外部リポジトリ作成は実行前に必ず自分で内容を確認します。"},
+  {"id":"step-3","instruction":"内容を確認できたら、CodexへGitHubリポジトリの作成またはremote設定とpushを依頼してください。トークンを会話やファイルへ書かないよう明記します。","success_check":"pushが成功し、送信先とブランチが報告される","hint":"認証が必要な場合は、表示されたGitHubの安全な認証フローを自分で完了します。"},
+  {"id":"step-4","instruction":"GitHubのリポジトリURLをブラウザで開き、index.htmlが存在することを確認してください。","success_check":"GitHub上でindex.htmlを確認できる","hint":"見つからない場合は、push先と表示中のブランチが一致するか確認します。"}
+],"veto_notes":["外部作成前に名前と公開範囲を確認する","認証情報を会話やファイルへ貼らない"]}

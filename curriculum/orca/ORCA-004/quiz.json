@@ -1,0 +1,4 @@
+{"lesson_id":"ORCA-004","questions":[
+  {"id":"ORCA-004-Q1","type":"single_choice","question":"pushの説明として正しいものはどれですか？","choices":[{"id":"A","text":"ローカルのコミットをremoteへ送る"},{"id":"B","text":"Windowsを終了する"},{"id":"C","text":"認証トークンを公開する"}],"answer":"A","explanation":"GitHubなどのremoteへコミットを送ります。","source_refs":["knowledge/orca/ORCA-004/facts.md"]},
+  {"id":"ORCA-004-Q2","type":"single_choice","question":"認証トークンの安全な扱いはどれですか？","choices":[{"id":"A","text":"index.htmlへ書く"},{"id":"B","text":"会話へ貼り付ける"},{"id":"C","text":"コードや会話へ貼らず認証用の仕組みを使う"}],"answer":"C","explanation":"認証情報をコード、コマンドの平文、会話へ露出させません。","source_refs":["knowledge/orca/ORCA-004/facts.md"]}
+]}

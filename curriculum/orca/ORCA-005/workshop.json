@@ -1,0 +1,6 @@
+{"lesson_id":"ORCA-005","type":"guided_release","environment":{"os":"Windows","requires_browser":true,"requires_github":true},"steps":[
+  {"id":"step-1","instruction":"Codexへ「GitHubへ送った全ファイルを確認し、氏名、住所、メール、パスワード、トークン、非公開にしたい内容がないか報告してください。変更はまだしないでください」と依頼してください。","success_check":"公開対象と機密情報検査の結果が報告される","hint":"少しでも不安な内容があれば公開せず、先に削除または非公開化します。"},
+  {"id":"step-2","instruction":"GitHubで対象リポジトリを開き、SettingsからPagesを開いてください。Build and deploymentのSourceでDeploy from a branchを選びます。","success_check":"Pagesの公開元を選ぶ画面が表示される","hint":"Settingsが見えない場合は、そのリポジトリの管理権限があるか確認します。"},
+  {"id":"step-3","instruction":"index.htmlがあるブランチとフォルダーを公開元として選び、公開される内容を再確認してからSaveを実行してください。","success_check":"公開処理が開始され、公開元のブランチとフォルダーが表示される","hint":"単純な練習ページでindex.htmlが直下にある場合、フォルダーは/(root)です。"},
+  {"id":"step-4","instruction":"GitHubが案内する公開URLを開き、見出し「はじめての作品」と説明文が表示されることを確認してください。","success_check":"公開URLで自分のWebページが表示される","hint":"すぐ表示されない場合は公開処理の状態を確認し、最大10分ほど待って再読込します。"}
+],"veto_notes":["公開前に内容を確認する","秘密情報を含む場合は公開しない"]}

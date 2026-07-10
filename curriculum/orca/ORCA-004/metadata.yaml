@@ -1,0 +1,28 @@
+id: ORCA-004
+title: GitHubへ作品を送る
+theme: Orca
+os:
+  - Windows
+difficulty: 1
+estimated_time: 20min
+status: draft
+version:
+  target: GitHub Web and CLI
+  verified_on: 2026-07-10
+confidence: 0.7
+last_verified: 2026-07-10
+requires:
+  - Windows PC
+  - Orca
+  - GitHub account
+  - GitHub CLI or authenticated Git
+learning_objective: remoteとpushの役割を理解し、公開範囲と秘密情報を確認して作品をGitHubへ送れる
+success_criteria:
+  - remoteがGitHub上の接続先であると説明できる
+  - リポジトリ名と公開範囲を確認できる
+  - 認証情報を含めずにpush結果を確認できる
+veto_checks:
+  - no_secret_commit
+  - confirm_external_write
+  - no_unverified_ui_instruction
+  - no_mac_instruction

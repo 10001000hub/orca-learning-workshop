@@ -1,0 +1,27 @@
+id: ORCA-005
+title: Web作品をURLで公開する
+theme: Orca
+os:
+  - Windows
+difficulty: 1
+estimated_time: 20min
+status: draft
+version:
+  target: GitHub Pages Web UI
+  verified_on: 2026-07-10
+confidence: 0.7
+last_verified: 2026-07-10
+requires:
+  - Windows PC
+  - Web browser
+  - GitHub repository
+learning_objective: GitHub Pagesの公開範囲を理解し、公開元を設定して成果物URLを確認できる
+success_criteria:
+  - 公開前に機密情報がないことを確認できる
+  - 公開元のブランチとフォルダーを説明できる
+  - 公開URLで自分のWebページを確認できる
+veto_checks:
+  - confirm_public_release
+  - no_secret_publish
+  - no_mac_instruction
+  - answer_must_be_unique

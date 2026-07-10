@@ -1,0 +1,5 @@
+{"lesson_id":"ORCA-003","type":"guided_practice","environment":{"os":"Windows","requires_orca":true,"requires_git":true},"steps":[
+  {"id":"step-1","instruction":"Codexへ「このプロジェクトがGit管理されているか確認し、git statusの結果を初心者向けに説明してください。まだ変更は記録しないでください」と依頼してください。","success_check":"Git管理の有無と変更ファイルが説明される","hint":"Git管理されていない場合だけ、練習用プロジェクト内でgit initを依頼します。"},
+  {"id":"step-2","instruction":"表示された変更ファイルに、パスワード、トークン、個人情報がないことを確認してください。","success_check":"コミット予定の各ファイルを確認し、秘密情報がないと言える","hint":"判断できないファイルはCodexへ内容と用途を質問してください。"},
+  {"id":"step-3","instruction":"Codexへ「確認したWebページのファイルだけをステージし、『最初のWebページを追加』という内容でコミットしてください。完了後にgit statusを報告してください」と依頼してください。","success_check":"コミットが作成され、対象外の変更が勝手に含まれていない","hint":"Gitの氏名やメール設定が必要と報告された場合は、値を自分で確認してから設定します。"}
+],"veto_notes":["秘密情報をコミットしない","対象ファイルを確認せずgit add .を指示しない"]}

@@ -1,0 +1,27 @@
+id: ORCA-003
+title: Gitで作品の変更履歴を残す
+theme: Orca
+os:
+  - Windows
+difficulty: 1
+estimated_time: 15min
+status: draft
+version:
+  target: Git 2.x
+  verified_on: 2026-07-10
+confidence: 0.8
+last_verified: 2026-07-10
+requires:
+  - Windows PC
+  - Orca
+  - Git
+learning_objective: Gitの状態確認、ステージ、コミットの役割を理解し、確認してから履歴を残せる
+success_criteria:
+  - git statusで変更対象を確認できる
+  - git addとgit commitの違いを説明できる
+  - 秘密情報がないことを確認してコミットできる
+veto_checks:
+  - no_unverified_ui_instruction
+  - no_mac_instruction
+  - no_secret_commit
+  - answer_must_be_unique

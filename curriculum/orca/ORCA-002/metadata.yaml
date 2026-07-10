@@ -1,0 +1,27 @@
+id: ORCA-002
+title: Codexと最初のWebページを作る
+theme: Orca
+os:
+  - Windows
+difficulty: 0
+estimated_time: 15min
+status: draft
+version:
+  target: Orca for Windows
+  verified_on: 2026-07-10
+confidence: 0.7
+last_verified: 2026-07-10
+requires:
+  - Windows PC
+  - Orca
+  - Web browser
+learning_objective: Codexへ小さなWebページの作成と確認を依頼し、成果物の場所と結果を確認できる
+success_criteria:
+  - 作るものと保存先を含む依頼を書ける
+  - index.htmlが成果物であると説明できる
+  - ブラウザ確認結果を完了報告から読み取れる
+veto_checks:
+  - no_unverified_ui_instruction
+  - no_nonexistent_button
+  - no_mac_instruction
+  - answer_must_be_unique

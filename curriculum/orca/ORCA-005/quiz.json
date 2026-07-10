@@ -1,0 +1,4 @@
+{"lesson_id":"ORCA-005","questions":[
+  {"id":"ORCA-005-Q1","type":"single_choice","question":"GitHub Pagesを有効にする前の最重要確認はどれですか？","choices":[{"id":"A","text":"公開元に機密情報がないこと"},{"id":"B","text":"ファイル名を全て秘密にすること"},{"id":"C","text":"パスワードをindex.htmlへ書くこと"}],"answer":"A","explanation":"Pagesはインターネットへ公開されるため、公開内容を先に確認します。","source_refs":["knowledge/orca/ORCA-005/facts.md"]},
+  {"id":"ORCA-005-Q2","type":"single_choice","question":"設定直後にページが表示されない場合の適切な対応はどれですか？","choices":[{"id":"A","text":"公開処理の状態と公開元を確認し、少し待つ"},{"id":"B","text":"認証トークンを公開する"},{"id":"C","text":"PCを初期化する"}],"answer":"A","explanation":"公開処理には時間がかかる場合があるため、状態と設定を確認します。","source_refs":["knowledge/orca/ORCA-005/facts.md"]}
+]}

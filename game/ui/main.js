@@ -1,10 +1,61 @@
 // content-loaderとengineをつないで画面を描画する。教材文言はここに書かない。
 const params = new URLSearchParams(window.location.search);
+const COURSES = [
+  { id: "ORCA-001", title: "OrcaとCodexで学習を始める", time: "10分" },
+  { id: "ORCA-002", title: "Codexと最初のWebページを作る", time: "15分" },
+  { id: "ORCA-003", title: "Gitで作品の変更履歴を残す", time: "15分" },
+  { id: "ORCA-004", title: "GitHubへ作品を送る", time: "20分" },
+  { id: "ORCA-005", title: "Web作品をURLで公開する", time: "20分" },
+];
 const THEME = params.get("theme") || "orca";
-const LESSON_ID = params.get("lesson") || "ORCA-001";
+const LESSON_ID = params.get("lesson");
+const STORAGE_KEY = "orca-learning-workshop-progress-v1";
 
 const appEl = document.getElementById("app");
 let session = null;
+
+function completedLessons() {
+  try {
+    const value = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    return Array.isArray(value) ? value : [];
+  } catch {
+    return [];
+  }
+}
+
+function markCompleted(id) {
+  const completed = completedLessons();
+  if (!completed.includes(id)) {
+    completed.push(id);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(completed));
+  }
+}
+
+function lessonUrl(id) {
+  return `?theme=orca&lesson=${encodeURIComponent(id)}&allowDraft=1`;
+}
+
+function renderCourseCatalog() {
+  const completed = completedLessons();
+  appEl.setAttribute("aria-busy", "false");
+  appEl.innerHTML = `
+    <div class="hero"><div class="stage-label">Windows専用・体験型コース</div>
+      <h1>Orca Learning Workshop</h1>
+      <p>左で学び、右のOrcaで試しながら、最初のWeb作品を公開します。</p>
+    </div>
+    <ol class="course-list">${COURSES.map((course, index) => {
+      const done = completed.includes(course.id);
+      return `<li class="course-card${done ? " completed" : ""}"><a href="${lessonUrl(course.id)}">
+        <span class="course-number">${index + 1}</span>
+        <span class="course-info"><strong>${escapeHtml(course.title)}</strong><small>${escapeHtml(course.id)}・約${escapeHtml(course.time)}</small></span>
+        <span class="course-status">${done ? "完了 ✓" : "開始 →"}</span>
+      </a></li>`;
+    }).join("")}</ol>`;
+}
+
+function renderCourseHeader() {
+  return `<nav class="course-nav" aria-label="コースナビゲーション"><a href="?">← コース一覧</a><span>${escapeHtml(LESSON_ID || "")}</span></nav>`;
+}
 
 function escapeHtml(text) {
   return String(text)
@@ -31,6 +82,7 @@ function renderLessonStage() {
   const { metadata, lessonHtml } = session.content;
   appEl.innerHTML = `
     <div class="card">
+      ${renderCourseHeader()}
       ${renderProgress(0)}
       <div class="stage-label">Lesson・${escapeHtml(metadata.id || "")}</div>
       ${lessonHtml}
@@ -69,6 +121,7 @@ function renderQuizStage() {
 
   appEl.innerHTML = `
     <div class="card">
+      ${renderCourseHeader()}
       ${renderProgress(1)}
       <div class="stage-label">Quiz ${session.quizIndex + 1} / ${total}</div>
       <h2>${escapeHtml(question.question)}</h2>
@@ -106,6 +159,7 @@ function renderWorkshopStage() {
   const total = session.content.workshop.steps.length;
   appEl.innerHTML = `
     <div class="card">
+      ${renderCourseHeader()}
       ${renderProgress(2)}
       <div class="stage-label">Workshop ${session.workshopStepIndex + 1} / ${total}</div>
       <h2>${escapeHtml(step.instruction)}</h2>
@@ -139,8 +193,12 @@ function renderWorkshopStage() {
 function renderDoneStage() {
   const { metadata } = session.content;
   const { correct, total } = GameEngine.quizScore(session);
+  markCompleted(metadata.id);
+  const courseIndex = COURSES.findIndex((course) => course.id === metadata.id);
+  const nextCourse = courseIndex >= 0 ? COURSES[courseIndex + 1] : null;
   appEl.innerHTML = `
     <div class="card">
+      ${renderCourseHeader()}
       ${renderProgress(3)}
       <div class="stage-label">Done</div>
       <h2>${escapeHtml(metadata.title || "")} を完了しました</h2>
@@ -151,6 +209,7 @@ function renderDoneStage() {
       </ul>
       <div class="actions">
         <button id="restart" class="secondary">最初からやり直す</button>
+        ${nextCourse ? `<a class="button-link" href="${lessonUrl(nextCourse.id)}">次のレッスンへ</a>` : `<a class="button-link" href="?">コース一覧へ</a>`}
       </div>
     </div>
   `;
@@ -181,6 +240,10 @@ function renderError(err) {
 
 async function main() {
   try {
+    if (!LESSON_ID) {
+      renderCourseCatalog();
+      return;
+    }
     const content = await ContentLoader.loadLesson(THEME, LESSON_ID);
     const allowDraft = params.get("allowDraft") === "1";
     if (content.metadata.status !== "published" && !allowDraft) {

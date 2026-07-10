@@ -1,0 +1,26 @@
+{
+  "lesson_id": "ORCA-002",
+  "type": "guided_practice",
+  "environment": {"os":"Windows","requires_browser":true,"requires_orca":true},
+  "steps": [
+    {
+      "id":"step-1",
+      "instruction":"OrcaでCodexへ依頼してください。「現在のワークスペース内に、見出し『はじめての作品』と説明文『OrcaとCodexで作りました』を表示するindex.htmlを作ってください。既存ファイルがある場合は上書きせず、先に報告してください。」",
+      "success_check":"Codexがindex.htmlを新規作成した、または既存ファイルを見つけて変更前に報告した",
+      "hint":"既存ファイルの報告が出た場合は、別フォルダーを作るよう依頼してください。"
+    },
+    {
+      "id":"step-2",
+      "instruction":"Codexへ「作成したページをローカルHTTPサーバーで開き、ブラウザ表示を確認してください」と依頼してください。",
+      "success_check":"HTTPでページを開いた結果と、見出し・説明文が表示された確認結果が報告される",
+      "hint":"確認中はCodexの進捗を読み、エラーが出たら内容をそのまま説明してもらいます。"
+    },
+    {
+      "id":"step-3",
+      "instruction":"完了報告から、成果物のファイル名、表示された見出し、確認方法を読み取ってください。",
+      "success_check":"index.html、はじめての作品、ブラウザ確認の3点を説明できる",
+      "hint":"見つからない項目はCodexへ追加で質問してください。"
+    }
+  ],
+  "veto_notes":["既存ファイルを無断で上書きしない","Orcaの未検証ボタン名を使わない"]
+}

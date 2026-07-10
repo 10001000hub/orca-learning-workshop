@@ -12,10 +12,12 @@
 
 - [x] ORCA-001初稿（OrcaとCodexで学習を始める）
 - [ ] ORCA-001 Windows実機スクリーンショット検証
-- [ ] ORCA-002 練習用Webプロジェクト作成
-- [ ] Gitの最小概念とコミット
-- [ ] GitHub接続とpush
-- [ ] Web成果物の公開と公開URL確認
+- [x] ORCA-002 練習用Webプロジェクト作成
+- [x] ORCA-003 Gitの最小概念とコミット
+- [x] ORCA-004 GitHub接続とpush
+- [x] ORCA-005 Web成果物の公開と公開URL確認
+- [x] コース一覧・次教材への移動・完了状態保存
+- [x] GitHub Pages用の静的配信ワークフローとサイト入口
 
 ## フェーズ0（今回）：基盤構築
 

@@ -1,0 +1,4 @@
+{"lesson_id":"ORCA-003","questions":[
+  {"id":"ORCA-003-Q1","type":"single_choice","question":"コミット前に最初に行う確認はどれですか？","choices":[{"id":"A","text":"git statusで変更対象を見る"},{"id":"B","text":"パスワードをファイルへ書く"},{"id":"C","text":"確認せず全て公開する"}],"answer":"A","explanation":"記録対象と秘密情報の有無を先に確認します。","source_refs":["knowledge/orca/ORCA-003/facts.md"]},
+  {"id":"ORCA-003-Q2","type":"single_choice","question":"git addの役割はどれですか？","choices":[{"id":"A","text":"変更をGitHubへ公開する"},{"id":"B","text":"次のコミットへ含める変更を選ぶ"},{"id":"C","text":"Windowsを更新する"}],"answer":"B","explanation":"git addは変更をステージします。履歴への記録はgit commitです。","source_refs":["knowledge/orca/ORCA-003/facts.md"]}
+]}

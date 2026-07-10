@@ -1,0 +1,19 @@
+{
+  "lesson_id": "ORCA-002",
+  "questions": [
+    {
+      "id": "ORCA-002-Q1", "type": "single_choice",
+      "question": "最初のWebページ作成で、先に決める内容として適切なものはどれですか？",
+      "choices": [{"id":"A","text":"目的、作業範囲、完成条件"},{"id":"B","text":"大量のアニメーションだけ"},{"id":"C","text":"パスワードと認証トークン"}],
+      "answer": "A", "explanation": "小さく確認できる目的と範囲、完成条件から始めます。",
+      "source_refs": ["knowledge/orca/ORCA-002/facts.md"]
+    },
+    {
+      "id": "ORCA-002-Q2", "type": "single_choice",
+      "question": "作成後に確認する内容はどれですか？",
+      "choices": [{"id":"A","text":"ファイルの場所、内容、ブラウザ確認結果"},{"id":"B","text":"回答の文字数だけ"},{"id":"C","text":"Orcaの背景色だけ"}],
+      "answer": "A", "explanation": "成果物の場所と中身、動作確認結果を確認します。",
+      "source_refs": ["knowledge/orca/ORCA-002/facts.md"]
+    }
+  ]
+}
