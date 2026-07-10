@@ -92,3 +92,23 @@ test("実際のGH-001教材を読み込み、構造を検証できる", async (t
   assert.equal(content.quiz.questions.length, 2);
   assert.equal(content.workshop.steps.length, 2);
 });
+
+test("メイン教材ORCA-001を読み込み、構造を検証できる", async (t) => {
+  const originalFetch = global.fetch;
+  global.fetch = async (resource) => {
+    const relativePath = String(resource).replace(/^\.\.\/\.\.\//, "");
+    try {
+      const body = await fs.readFile(path.join(__dirname, "..", relativePath), "utf8");
+      return { ok: true, status: 200, text: async () => body };
+    } catch {
+      return { ok: false, status: 404, text: async () => "" };
+    }
+  };
+  t.after(() => { global.fetch = originalFetch; });
+
+  const content = await ContentLoader.loadLesson("orca", "ORCA-001");
+  assert.equal(content.metadata.id, "ORCA-001");
+  assert.equal(content.metadata.os[0], "Windows");
+  assert.equal(content.quiz.questions.length, 2);
+  assert.equal(content.workshop.steps.length, 3);
+});

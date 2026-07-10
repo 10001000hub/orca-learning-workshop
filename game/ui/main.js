@@ -1,6 +1,7 @@
 // content-loaderとengineをつないで画面を描画する。教材文言はここに書かない。
-const THEME = "github";
-const LESSON_ID = "GH-001";
+const params = new URLSearchParams(window.location.search);
+const THEME = params.get("theme") || "orca";
+const LESSON_ID = params.get("lesson") || "ORCA-001";
 
 const appEl = document.getElementById("app");
 let session = null;
@@ -181,7 +182,7 @@ function renderError(err) {
 async function main() {
   try {
     const content = await ContentLoader.loadLesson(THEME, LESSON_ID);
-    const allowDraft = new URLSearchParams(window.location.search).get("allowDraft") === "1";
+    const allowDraft = params.get("allowDraft") === "1";
     if (content.metadata.status !== "published" && !allowDraft) {
       throw new Error(
         `この教材は公開前です（status: ${content.metadata.status || "未設定"}）。` +

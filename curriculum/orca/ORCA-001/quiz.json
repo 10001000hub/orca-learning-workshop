@@ -1,0 +1,31 @@
+{
+  "lesson_id": "ORCA-001",
+  "questions": [
+    {
+      "id": "ORCA-001-Q1",
+      "type": "single_choice",
+      "question": "Codexへ最初の依頼を書くとき、確認しやすくするために含める3点はどれですか？",
+      "choices": [
+        { "id": "A", "text": "目的、対象、完了条件" },
+        { "id": "B", "text": "氏名、住所、パスワード" },
+        { "id": "C", "text": "専門用語、長いコード、英語" }
+      ],
+      "answer": "A",
+      "explanation": "何をしたいか、何を扱うか、何を確認できれば完成かを伝えると、作業範囲と結果を確認しやすくなります。",
+      "source_refs": ["knowledge/orca/ORCA-001/facts.md"]
+    },
+    {
+      "id": "ORCA-001-Q2",
+      "type": "single_choice",
+      "question": "Codexの完了報告で確認する内容として適切なものはどれですか？",
+      "choices": [
+        { "id": "A", "text": "文章の長さだけ" },
+        { "id": "B", "text": "調査内容、変更したファイル、テスト結果" },
+        { "id": "C", "text": "画面の色だけ" }
+      ],
+      "answer": "B",
+      "explanation": "実際に何が行われ、どの成果物が変わり、確認が成功したかを読むことが大切です。",
+      "source_refs": ["knowledge/orca/ORCA-001/facts.md"]
+    }
+  ]
+}

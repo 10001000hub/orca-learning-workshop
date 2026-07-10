@@ -1,5 +1,22 @@
 # ROADMAP
 
+## 製品方針（2026-07-10更新）
+
+- Windows専用。Macは検証環境がないため対象外。
+- メイン教材をGitHub単体からOrca実践コースへ変更。
+- ブラウザ教材を左、Orcaを右に配置し、Codexと共同作業しながら学ぶ。
+- 到達経路: Orca基本操作 → 練習用プロジェクト → Codexとの共同作業 → Git → GitHub連携 → 成果物公開。
+- 当面は現在のリポジトリからURLを公開し、専用リポジトリへの分離は将来判断する。
+
+## Orca製品コース
+
+- [x] ORCA-001初稿（OrcaとCodexで学習を始める）
+- [ ] ORCA-001 Windows実機スクリーンショット検証
+- [ ] ORCA-002 練習用Webプロジェクト作成
+- [ ] Gitの最小概念とコミット
+- [ ] GitHub接続とpush
+- [ ] Web成果物の公開と公開URL確認
+
 ## フェーズ0（今回）：基盤構築
 
 - [x] プロジェクト構成（research / knowledge / curriculum / game / eval / templates / review / scripts / tests / assets）

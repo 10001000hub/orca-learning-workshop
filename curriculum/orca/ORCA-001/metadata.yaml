@@ -1,0 +1,27 @@
+id: ORCA-001
+title: OrcaとCodexで学習を始める
+theme: Orca
+os:
+  - Windows
+difficulty: 0
+estimated_time: 10min
+status: draft
+version:
+  target: Orca for Windows
+  verified_on: 2026-07-10
+confidence: 0.6
+last_verified: 2026-07-10
+requires:
+  - Windows PC
+  - Orca
+  - Web browser
+learning_objective: OrcaとCodexの役割を理解し、安全で確認しやすい最初の依頼を書ける
+success_criteria:
+  - Orcaとブラウザ教材を同時に見られる準備ができる
+  - Codexへ目的と完了条件を含む依頼を書ける
+  - Codexの進捗と完了報告を読んで作業結果を確認できる
+veto_checks:
+  - no_unverified_ui_instruction
+  - no_nonexistent_button
+  - no_mac_instruction
+  - answer_must_be_unique
