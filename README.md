@@ -1,6 +1,8 @@
 # AI Learning Workshop
 
-製品入口: `index.html`（GitHub PagesではサイトのルートURLから自動的にコース一覧へ移動）
+公開URL: https://10001000hub.github.io/orca-learning-workshop/
+
+製品入口は`index.html`。元の非公開リポジトリから教材ディレクトリだけを専用公開リポジトリへ分離して配信する。更新時はリポジトリルートで`bash tools/publish-orca-workshop.sh`を実行する。
 
 Windows初心者・IT初心者・GitHub初心者・そしてこれからAI開発環境を学ぶ人のための、**実践型AI学習ゲーム教材基盤**です。
 
