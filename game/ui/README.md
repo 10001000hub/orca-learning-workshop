@@ -19,16 +19,18 @@ GH-001固定（テーマ・教材ID選択UIはまだない）。lesson表示 →
 # WSL / Linux
 cd AI-Learning-Workshop
 python3 -m http.server 8420
-# ブラウザで http://localhost:8420/game/ui/index.html を開く
+# 公開済み教材を開く: http://localhost:8420/game/ui/index.html
+# draft教材をレビューする: http://localhost:8420/game/ui/index.html?allowDraft=1
 ```
 
 ```powershell
 # Windows (PowerShell。Pythonランチャー py が必要)
 cd AI-Learning-Workshop
 py -m http.server 8420
-# ブラウザで http://localhost:8420/game/ui/index.html を開く
+# draft教材GH-001のレビュー時は
+# http://localhost:8420/game/ui/index.html?allowDraft=1 を開く
 ```
 
 ## 現在の状態（試作v0）
 
-`content-loader`/`engine`のロジックはNode.js上で実データを使い動作確認済み。ユーザーによるブラウザでの目視確認も完了（2026-07-09、lesson→quiz(2問)→workshop(2ステップ)→doneまで一連の操作を確認）。テーマ・教材ID選択、`status`による読み込み制御、進行状態の永続化（リロードで消える）は未実装。
+`content-loader`/`engine`のロジックはNode.js上で実データを使い動作確認済み。ユーザーによるブラウザでの目視確認も完了（2026-07-09、lesson→quiz(2問)→workshop(2ステップ)→doneまで一連の操作を確認）。`status: published`以外の教材は既定で起動を拒否し、レビュー時だけ`?allowDraft=1`で明示的に許可する。テーマ・教材ID選択と進行状態の永続化（リロードで消える）は未実装。

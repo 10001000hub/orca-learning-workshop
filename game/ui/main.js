@@ -179,6 +179,13 @@ function renderError(err) {
 async function main() {
   try {
     const content = await ContentLoader.loadLesson(THEME, LESSON_ID);
+    const allowDraft = new URLSearchParams(window.location.search).get("allowDraft") === "1";
+    if (content.metadata.status !== "published" && !allowDraft) {
+      throw new Error(
+        `この教材は公開前です（status: ${content.metadata.status || "未設定"}）。` +
+          "レビュー用に表示する場合はURLへ ?allowDraft=1 を付けてください。"
+      );
+    }
     session = GameEngine.createSession(content);
     render();
   } catch (err) {
