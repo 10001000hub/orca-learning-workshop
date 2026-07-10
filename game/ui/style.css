@@ -108,6 +108,18 @@ button:disabled {
   cursor: not-allowed;
 }
 
+button:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--accent) 65%, white);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 button.secondary {
   background: transparent;
   color: var(--accent);

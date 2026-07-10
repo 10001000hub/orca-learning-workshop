@@ -27,13 +27,13 @@
 - この段階でもゲーム側に教材本文を直接埋め込まない設計を維持する（達成）
 - [x] ブラウザでの目視確認・操作確認（2026-07-09にlesson→quiz→workshop→doneの一連を確認）
 - [ ] テーマ・教材IDの選択UI（現状GH-001固定）
-- [ ] `status: published` による読み込み制御
+- [x] `status: published` による読み込み制御（UIで既定拒否、レビュー時のみ明示許可）
 
 ## フェーズ3：複数教材の安定運用
 
 - 複数教材が安定してeval-loopの基準を満たすようになった段階で `/run-eval-loop-parallel` へ移行
 - テーマをGitHub以外（例: Windows基本操作、ターミナル入門）へ拡張するか検討
-- `tests/` にゲーム・content-loaderの自動テストを追加
+- [x] `tests/` にゲーム・content-loaderの自動テストを追加
 
 ## 非目標（当面やらないこと）
 

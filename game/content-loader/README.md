@@ -13,4 +13,4 @@
 
 `ContentLoader.loadLesson(theme, id)` を実装済み。GH-001を対象に、Node.jsの`vm`モジュール上でサーバー経由の実データを読み込む検証を行い、metadataのパース・lessonのHTML変換・quiz/workshopのJSON読み込みが正しく動作することを確認済み。
 
-`status`による読み込み制御（`published`のみ許可、など）は未実装。今のところ`theme`/`id`を指定すればstatusに関わらず読み込む。
+読み込み後に必須項目、教材ID、クイズ正答、実習手順の構造整合性を検証する。公開可否の判断は表示ポリシーであるためUI層が担当し、`published`以外は既定で拒否する。

@@ -44,7 +44,7 @@ curriculumを読み込んで表示するゲーム本体。
 
 - ゲーム本体のコードに教材本文（lesson文・クイズ文言など）を直接埋め込まない。教材は必ず `curriculum/` からロードする。
 - 構成: `engine/`（ゲームロジック）, `ui/`（画面表示）, `content-loader/`（curriculumの読み込み処理）。
-- GH-001固定の試作v0を実装済み（vanilla HTML/CSS/JS、ビルドツールなし）。テーマ・教材ID選択、`status`による読み込み制御は未実装。詳細は各サブディレクトリのREADME([engine/README.md](../game/engine/README.md), [ui/README.md](../game/ui/README.md), [content-loader/README.md](../game/content-loader/README.md))を参照。
+- GH-001固定の試作v0を実装済み（vanilla HTML/CSS/JS、ビルドツールなし）。`status: published`以外はUIが既定で拒否し、レビュー時のみ明示的に許可する。テーマ・教材ID選択は未実装。詳細は各サブディレクトリのREADME([engine/README.md](../game/engine/README.md), [ui/README.md](../game/ui/README.md), [content-loader/README.md](../game/content-loader/README.md))を参照。
 
 ## 層をまたいだ責務分離のメリット
 

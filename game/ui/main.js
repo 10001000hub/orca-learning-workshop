@@ -15,10 +15,10 @@ function escapeHtml(text) {
 
 function renderProgress(activeIndex) {
   const stages = ["Lesson", "Quiz", "Workshop", "Done"];
-  return `<div class="progress">${stages
+  return `<div class="progress" aria-label="学習の進み具合">${stages
     .map(
       (name, i) => `
-        <div class="progress-step${i <= activeIndex ? " active" : ""}">
+        <div class="progress-step${i <= activeIndex ? " active" : ""}"${i === activeIndex ? ' aria-current="step"' : ""}>
           <div class="progress-bar"></div>
           <div class="progress-label">${name}</div>
         </div>`
@@ -160,6 +160,7 @@ function renderDoneStage() {
 }
 
 function render() {
+  appEl.setAttribute("aria-busy", "false");
   if (session.stage === "lesson") renderLessonStage();
   else if (session.stage === "quiz") renderQuizStage();
   else if (session.stage === "workshop") renderWorkshopStage();
@@ -167,10 +168,11 @@ function render() {
 }
 
 function renderError(err) {
+  appEl.setAttribute("aria-busy", "false");
   appEl.innerHTML = `
     <div class="card">
       <div class="stage-label">読み込みエラー</div>
-      <p class="error">${escapeHtml(err.message)}</p>
+      <p class="error" role="alert">${escapeHtml(err.message)}</p>
       <p>ローカルサーバー経由（Windows: <code>py -m http.server</code> / WSL・Linux: <code>python3 -m http.server</code>）で <code>game/ui/index.html</code> を開いているか確認してください。<code>file://</code> で直接開くと教材ファイルの読み込みがブラウザにブロックされます。</p>
     </div>
   `;

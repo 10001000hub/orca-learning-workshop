@@ -16,4 +16,4 @@
 
 ## 現在の状態（試作v0）
 
-GH-001固定の一本道フローとして最小実装した。`content-loader`/`engine`はNode.js上で実データを使い動作確認済み。`ui`はブラウザでの目視確認も完了（2026-07-09。起動方法は[ui/README.md](ui/README.md)を参照）。テーマ・教材IDの選択UI、`status`による読み込み制御、複数教材対応は未実装（[docs/ROADMAP.md](../docs/ROADMAP.md)フェーズ2以降）。
+GH-001固定の一本道フローとして最小実装した。`content-loader`/`engine`はNode.js標準テストで継続検証し、`ui`はブラウザでの目視確認も完了（2026-07-09。起動方法は[ui/README.md](ui/README.md)を参照）。`status: published`以外はUIが既定で拒否する。テーマ・教材IDの選択UIと複数教材対応は未実装（[docs/ROADMAP.md](../docs/ROADMAP.md)フェーズ2以降）。

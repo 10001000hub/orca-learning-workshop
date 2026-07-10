@@ -2,6 +2,12 @@
 // 教材本文そのものは持たず、content-loaderが返したデータを参照するだけ。
 const GameEngine = (() => {
   function createSession(content) {
+    if (!content || !content.quiz || !Array.isArray(content.quiz.questions) || content.quiz.questions.length === 0) {
+      throw new Error("問題を1問以上含む教材が必要です。");
+    }
+    if (!content.workshop || !Array.isArray(content.workshop.steps) || content.workshop.steps.length === 0) {
+      throw new Error("手順を1件以上含む教材が必要です。");
+    }
     return {
       content,
       stage: "lesson", // "lesson" | "quiz" | "workshop" | "done"
@@ -24,6 +30,9 @@ const GameEngine = (() => {
   // 選んだ選択肢がその設問で初めての回答でなければ上書きしない(1問1回のみ採点)
   function answerQuiz(session, choiceId) {
     const question = currentQuizQuestion(session);
+    if (!question.choices.some((choice) => choice.id === choiceId)) {
+      throw new Error(`選択肢 '${choiceId}' は問題 ${question.id} に存在しません。`);
+    }
     const alreadyAnswered = session.quizResults.some((r) => r.questionId === question.id);
     if (alreadyAnswered) {
       return session.quizResults.find((r) => r.questionId === question.id);
@@ -77,3 +86,5 @@ const GameEngine = (() => {
     quizScore,
   };
 })();
+
+if (typeof module !== "undefined" && module.exports) module.exports = GameEngine;

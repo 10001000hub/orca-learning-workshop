@@ -14,8 +14,14 @@
 - 教材整合性検証スクリプト `scripts/validate-curriculum.ps1` を作成。
 - `.github/` にIssue/PRテンプレートを作成。
 - `game/`本体の試作v0を実装（GH-001固定・vanilla HTML/CSS/JS）。`content-loader.js`（curriculumファイルのfetch・簡易YAML/Markdown変換）、`engine.js`（lesson→quiz→workshop→doneの状態遷移・採点）、`ui/`（index.html/main.js/style.css、ライト/ダーク対応）。
+- Node.js標準テストを追加し、CRLF、MarkdownのHTMLエスケープ、実データ読み込み、進行・採点を自動検証。
 
 ### Fixed
+
+- content-loaderに教材ID・必須項目・クイズ正答・実習手順の構造検証を追加。
+- engineが空の教材や存在しない選択肢を明示的に拒否するよう改善。
+- UIに進行状況のARIA属性、読み込み状態、エラー通知、キーボードフォーカス表示を追加。
+- `status`制御と自動テストに関する設計・ロードマップの記述を実装状況に同期。
 
 - 自己レビューとCodex(gpt-5.5)による独立レビューの指摘を反映（2026-07-09）。
   - `workshop.json` step-2の`success_check`が主観的すぎた点を、観測可能なチェックリスト形式に修正。

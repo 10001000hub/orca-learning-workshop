@@ -1,9 +1,16 @@
 # tests
 
-`game/`（engine / ui / content-loader）の自動テストを配置する予定のディレクトリ。
+`game/`（engine / content-loader）の自動テストを配置するディレクトリ。
 
 ## 現在の状態
 
-`game/`は試作v0（GH-001固定）まで実装済みだが、本ディレクトリのテストコードは未作成。[docs/ROADMAP.md](../docs/ROADMAP.md)フェーズ3で、`content-loader`の読み込みテスト（CRLF混入時のmetadata解析など）から追加していく想定。
+Node.js 18以降の標準テストランナーだけを使うため、依存パッケージのインストールは不要。
+
+```bash
+cd AI-Learning-Workshop
+node --test tests/*.test.js
+```
+
+現在はmetadata解析（CRLFを含む）、Markdownの安全な変換、教材データ整合性、ゲーム進行、採点、不正な選択肢の拒否を検証する。
 
 教材コンテンツ自体の検証（JSON妥当性・必須項目・Veto条件）は`scripts/validate-curriculum.ps1`とeval-loop（`eval/`）が担当し、本ディレクトリの対象外とする。
