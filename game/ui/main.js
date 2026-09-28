@@ -27,7 +27,11 @@ function markCompleted(id) {
   const completed = completedLessons();
   if (!completed.includes(id)) {
     completed.push(id);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(completed));
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(completed));
+    } catch {
+      // プライベートブラウズ等で保存できなくても、学習の完了画面は表示する。
+    }
   }
 }
 
@@ -35,22 +39,48 @@ function lessonUrl(id) {
   return `?theme=orca&lesson=${encodeURIComponent(id)}&allowDraft=1`;
 }
 
-function renderCourseCatalog() {
+// コース一覧は各教材のmetadata.yamlからstatusを読み、公開前の教材には必ずラベルを付ける。
+// 読み込めなかった教材は「状態を確認できません」と表示し、公開済みとして扱わない。
+async function renderCourseCatalog() {
   const completed = completedLessons();
+  const results = await Promise.allSettled(
+    COURSES.map((course) => ContentLoader.loadMetadata("orca", course.id))
+  );
+  const statuses = results.map((result) =>
+    result.status === "fulfilled" ? LessonStatus.describe(result.value.status) : null
+  );
+  const unpublishedCount = statuses.filter((status) => !status || !status.isPublished).length;
+  const catalogNotice =
+    unpublishedCount === COURSES.length
+      ? "現在の教材はすべて公開前（下書き・レビュー中）です。Windows実機と初心者による通し確認がまだ終わっていないため、画面の見た目や手順が説明と異なる場合があります。"
+      : unpublishedCount > 0
+        ? "「公開済み」以外の教材は、Windows実機での確認が終わっていません。"
+        : "";
   appEl.setAttribute("aria-busy", "false");
   appEl.innerHTML = `
     <div class="hero"><div class="stage-label">Windows専用・体験型コース</div>
       <h1>Orca Learning Workshop</h1>
       <p>左で学び、右のOrcaで試しながら、最初のWeb作品を公開します。</p>
+      ${catalogNotice ? `<p class="status-notice" role="note">${escapeHtml(catalogNotice)}</p>` : ""}
     </div>
     <ol class="course-list">${COURSES.map((course, index) => {
       const done = completed.includes(course.id);
+      const status = statuses[index];
+      const badge = status
+        ? `<span class="status-badge${status.isPublished ? " published" : ""}">${escapeHtml(status.label)}</span>`
+        : `<span class="status-badge unknown">状態を確認できません</span>`;
       return `<li class="course-card${done ? " completed" : ""}"><a href="${lessonUrl(course.id)}">
         <span class="course-number">${index + 1}</span>
-        <span class="course-info"><strong>${escapeHtml(course.title)}</strong><small>${escapeHtml(course.id)}・約${escapeHtml(course.time)}</small></span>
+        <span class="course-info"><strong>${escapeHtml(course.title)}</strong><small>${escapeHtml(course.id)}・約${escapeHtml(course.time)} ${badge}</small></span>
         <span class="course-status">${done ? "完了 ✓" : "開始 →"}</span>
       </a></li>`;
     }).join("")}</ol>`;
+}
+
+function renderStatusNotice() {
+  const status = LessonStatus.describe(session.content.metadata.status);
+  if (status.isPublished) return "";
+  return `<p class="status-notice" role="note"><span class="status-badge">${escapeHtml(status.label)}</span> ${escapeHtml(status.notice)}</p>`;
 }
 
 function renderCourseHeader() {
@@ -85,6 +115,7 @@ function renderLessonStage() {
       ${renderCourseHeader()}
       ${renderProgress(0)}
       <div class="stage-label">Lesson・${escapeHtml(metadata.id || "")}</div>
+      ${renderStatusNotice()}
       ${lessonHtml}
       <div class="actions">
         <button id="to-quiz">クイズに進む</button>
@@ -227,13 +258,20 @@ function render() {
   else renderDoneStage();
 }
 
+// ローカルサーバーの案内はファイル取得に失敗したときだけ出す。
+// 公開前の教材や不正な教材指定では、原因と戻り先だけを示す。
 function renderError(err) {
   appEl.setAttribute("aria-busy", "false");
+  const fetchHint =
+    err.kind === "fetch"
+      ? `<p>手元で開いている場合は、ローカルサーバー経由（Windows: <code>py -m http.server</code> / WSL・Linux: <code>python3 -m http.server</code>）で <code>game/ui/index.html</code> を開いているか確認してください。<code>file://</code> で直接開くと教材ファイルの読み込みがブラウザにブロックされます。</p>`
+      : "";
   appEl.innerHTML = `
     <div class="card">
-      <div class="stage-label">読み込みエラー</div>
+      <div class="stage-label">${err.kind === "draft-blocked" ? "公開前の教材" : "読み込みエラー"}</div>
       <p class="error" role="alert">${escapeHtml(err.message)}</p>
-      <p>ローカルサーバー経由（Windows: <code>py -m http.server</code> / WSL・Linux: <code>python3 -m http.server</code>）で <code>game/ui/index.html</code> を開いているか確認してください。<code>file://</code> で直接開くと教材ファイルの読み込みがブラウザにブロックされます。</p>
+      ${fetchHint}
+      <div class="actions"><a class="button-link" href="?">コース一覧へ</a></div>
     </div>
   `;
 }
@@ -241,16 +279,18 @@ function renderError(err) {
 async function main() {
   try {
     if (!LESSON_ID) {
-      renderCourseCatalog();
+      await renderCourseCatalog();
       return;
     }
     const content = await ContentLoader.loadLesson(THEME, LESSON_ID);
     const allowDraft = params.get("allowDraft") === "1";
-    if (content.metadata.status !== "published" && !allowDraft) {
-      throw new Error(
+    if (!LessonStatus.describe(content.metadata.status).isPublished && !allowDraft) {
+      const err = new Error(
         `この教材は公開前です（status: ${content.metadata.status || "未設定"}）。` +
-          "レビュー用に表示する場合はURLへ ?allowDraft=1 を付けてください。"
+          "コース一覧から開くと、公開前であることを表示したうえで読めます。"
       );
+      err.kind = "draft-blocked";
+      throw err;
     }
     session = GameEngine.createSession(content);
     render();

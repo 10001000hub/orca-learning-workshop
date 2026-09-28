@@ -1,0 +1,6 @@
+id: BAD-001
+title: 検証スクリプトが不合格を返すことを確かめるための壊れた教材
+os:
+  - Windows
+  - macOS
+status: draft

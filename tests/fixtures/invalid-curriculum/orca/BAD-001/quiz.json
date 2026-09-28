@@ -1,0 +1,6 @@
+{
+  "lesson_id": "BAD-001",
+  "questions": [
+    { "id": "Q1", "question": "正答がchoicesにない", "choices": [{ "id": "A", "text": "A" }], "answer": "Z" }
+  ]
+}

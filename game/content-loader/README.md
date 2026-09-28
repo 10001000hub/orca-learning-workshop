@@ -13,4 +13,6 @@
 
 `ContentLoader.loadLesson(theme, id)` を実装済み。GH-001を対象に、Node.jsの`vm`モジュール上でサーバー経由の実データを読み込む検証を行い、metadataのパース・lessonのHTML変換・quiz/workshopのJSON読み込みが正しく動作することを確認済み。
 
-読み込み後に必須項目、教材ID、クイズ正答、実習手順の構造整合性を検証する。公開可否の判断は表示ポリシーであるためUI層が担当し、`published`以外は既定で拒否する。
+読み込み後に必須項目、教材ID、クイズ正答、実習手順の構造整合性を検証する。公開可否の判断は表示ポリシーであるためUI層（`game/ui/lesson-status.js`）が担当する。
+
+URLから来る`theme`と教材IDは、fetchする前に形式（theme: 英小文字・数字・ハイフン、ID: `ORCA-001`形式）を検査し、`../`などcurriculum外を指す値は読み込まずに拒否する。エラーには`kind`（`invalid-ref` / `fetch` / `validation`）を付け、UIが案内を出し分ける。コース一覧用に`loadMetadata(theme, id)`でmetadata.yamlだけを読める。

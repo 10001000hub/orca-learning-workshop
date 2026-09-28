@@ -1,10 +1,40 @@
 // curriculum/<theme>/<id>/ の教材ファイルをfetchで読み込み、ゲーム内部で扱える形に変換する。
 // 教材本文はここでのみ取得し、engine/uiはこのモジュールが返すデータ経由でのみ教材に触れる。
 const ContentLoader = (() => {
+  // kind: "invalid-ref"（URLの教材指定が不正）/ "fetch"（ファイルを取得できない）/
+  // "validation"（教材データが不正）。UIはkindに応じて案内を出し分ける。
+  function loaderError(kind, message) {
+    const err = new Error(message);
+    err.kind = kind;
+    return err;
+  }
+
+  // themeとIDはURLから来るため、curriculum/の外を指す値（../ や / を含む値）はfetch前に拒否する。
+  const THEME_PATTERN = /^[a-z][a-z0-9-]{0,31}$/;
+  const ID_PATTERN = /^[A-Z][A-Z0-9]{0,15}-\d{3}$/;
+
+  function isSafeLessonRef(theme, id) {
+    return typeof theme === "string" && typeof id === "string" &&
+      THEME_PATTERN.test(theme) && ID_PATTERN.test(id);
+  }
+
+  function lessonBase(theme, id) {
+    if (!isSafeLessonRef(theme, id)) {
+      throw loaderError("invalid-ref", `教材の指定が正しくありません（theme: ${theme || "未指定"}, lesson: ${id || "未指定"}）`);
+    }
+    // index.htmlは game/ui/ にあるため、リポジトリ直下のcurriculum/へは2階層上がる。
+    return `../../curriculum/${theme}/${id}`;
+  }
+
   async function fetchText(path) {
-    const res = await fetch(path);
+    let res;
+    try {
+      res = await fetch(path);
+    } catch (cause) {
+      throw loaderError("fetch", `教材ファイルの読み込みに失敗しました: ${path} (${cause && cause.message ? cause.message : "通信エラー"})`);
+    }
     if (!res.ok) {
-      throw new Error(`教材ファイルの読み込みに失敗しました: ${path} (HTTP ${res.status})`);
+      throw loaderError("fetch", `教材ファイルの読み込みに失敗しました: ${path} (HTTP ${res.status})`);
     }
     // Windowsでautocrlf=trueのままcloneするとCRLFになり、metadata.yamlの
     // 行頭アンカー正規表現(os/success_criteria)がマッチしなくなるため必ずLFに正規化する。
@@ -12,7 +42,12 @@ const ContentLoader = (() => {
   }
 
   async function fetchJson(path) {
-    return JSON.parse(await fetchText(path));
+    const text = await fetchText(path);
+    try {
+      return JSON.parse(text);
+    } catch (cause) {
+      throw loaderError("validation", `JSONとして読み込めません: ${path} (${cause.message})`);
+    }
   }
 
   // metadata.yamlはトップレベルのkey: valueとkey:配下の "  - item" リストのみを持つ
@@ -125,13 +160,18 @@ const ContentLoader = (() => {
     if (!workshop || !Array.isArray(workshop.steps) || workshop.steps.length === 0) {
       errors.push("workshop.json に手順がありません");
     }
-    if (errors.length > 0) throw new Error(`教材データが不正です:\n- ${errors.join("\n- ")}`);
+    if (errors.length > 0) throw loaderError("validation", `教材データが不正です:\n- ${errors.join("\n- ")}`);
     return content;
   }
 
+  // コース一覧で公開状態を表示するため、metadata.yamlだけを読む。
+  async function loadMetadata(theme, id) {
+    const base = lessonBase(theme, id);
+    return parseMetadataMinimal(await fetchText(`${base}/metadata.yaml`));
+  }
+
   async function loadLesson(theme, id) {
-    // index.htmlは game/ui/ にあるため、AI-Learning-Workshop直下のcurriculum/へは2階層上がる。
-    const base = `../../curriculum/${theme}/${id}`;
+    const base = lessonBase(theme, id);
     const [metadataText, lessonText, quiz, workshop] = await Promise.all([
       fetchText(`${base}/metadata.yaml`),
       fetchText(`${base}/lesson.md`),
@@ -146,7 +186,14 @@ const ContentLoader = (() => {
     }, id);
   }
 
-  return { loadLesson, parseMetadataMinimal, renderLessonMarkdown, validateContent };
+  return {
+    isSafeLessonRef,
+    loadLesson,
+    loadMetadata,
+    parseMetadataMinimal,
+    renderLessonMarkdown,
+    validateContent,
+  };
 })();
 
 if (typeof module !== "undefined" && module.exports) module.exports = ContentLoader;

@@ -1,0 +1,4 @@
+{
+  "lesson_id": "BAD-001",
+  "steps": [{ "id": "S1", "instruction": "success_checkが空", "success_check": "" }]
+}
