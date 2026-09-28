@@ -6,6 +6,19 @@
 
 ### Added
 
+- GitHub Actions（`.github/workflows/ci.yml`）で、Node.jsテストと`validate-curriculum.ps1`（Windows PowerShell 5.1）を実行。壊れた教材のfixtureで検証スクリプトが不合格を返すことも毎回確認する。権限は`contents: read`のみで、LLM・外部APIは呼ばない。
+- コース一覧と各レッスンに公開状態（「下書き」「レビュー中」）と未検証である旨の注意を表示（`game/ui/lesson-status.js`）。
+- curriculum外を指すtheme/ID、公開前教材の表示区分、GitHub Pagesのサブパスでの相対参照を検証するテストを追加。
+
+### Fixed
+
+- URLの`theme`/`lesson`を検査せずにfetchのパスへ入れていたため、`../`を含む値でcurriculum外のファイル取得を試みていた問題を修正。
+- 公開前教材の拒否や教材指定の誤りでも「ローカルサーバーを確認」という無関係な案内を出していた問題を修正し、エラー画面にコース一覧への戻り先を追加。
+- localStorageへ保存できない環境で完了画面の表示が失敗しうる問題を修正。
+- README等に残っていた旧ディレクトリ名（`AI-Learning-Workshop`）と退役済みの公開スクリプトへの参照を削除し、clone後の起動・検証手順を追記。
+
+### Added（初期構成・試作v0）
+
 - プロジェクト初期構成（research / knowledge / curriculum / game / eval / templates / review / scripts / tests / assets）を作成。
 - ドキュメント一式（README, ARCHITECTURE, CURRICULUM_GUIDE, EVAL_LOOP_GUIDE, LESSON_AUTHORING_GUIDE, VALIDATION_POLICY, ROADMAP）を作成。
 - 教材テンプレート一式（lesson, facts, metadata, quiz, workshop, review, source-pack）を作成。

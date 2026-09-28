@@ -2,7 +2,7 @@
 
 公開URL: https://10001000hub.github.io/orca-learning-workshop/
 
-製品入口は`index.html`。元の非公開リポジトリから教材ディレクトリだけを専用公開リポジトリへ分離して配信する。更新時はリポジトリルートで`bash tools/publish-orca-workshop.sh`を実行する。
+製品入口は`index.html`（`game/ui/index.html`へ移動する）。このリポジトリが教材と学習画面の編集元であり、変更はPull Requestで行う。`main`ブランチの内容がGitHub Pagesで配信される。
 
 Windows初心者・IT初心者・GitHub初心者・そしてこれからAI開発環境を学ぶ人のための、**実践型AI学習ゲーム教材基盤**です。
 
@@ -70,7 +70,7 @@ game/
 ## ディレクトリ構成
 
 ```text
-AI-Learning-Workshop/
+orca-learning-workshop/
 ├── docs/              # 設計・運用ドキュメント
 ├── research/          # 一次資料
 ├── knowledge/         # 事実(facts)
@@ -80,7 +80,7 @@ AI-Learning-Workshop/
 ├── templates/         # 教材ファイルのひな形
 ├── review/            # 初心者レビュー記録
 ├── scripts/           # 検証スクリプト
-├── tests/             # テスト
+├── tests/             # 自動テスト（Node.js標準テストランナー）
 └── assets/            # 画像等アセット
 ```
 
@@ -90,3 +90,29 @@ AI-Learning-Workshop/
 - メイン教材: `ORCA-001`（OrcaとCodexで学習を始める、`status: draft`）
 - 既存教材: `GH-001`（GitHubとは何か、`status: draft`）
 - ステータス: ORCA-001〜005初稿、コース一覧、次教材への移動、完了状態保存を実装済み。Orca画面の実機スクリーンショット検証と全コースの初心者通し確認は継続作業。
+- 公開状態: 全教材が`status: draft`のため、学習画面のコース一覧と各レッスンに「下書き」と未検証である旨を表示する。
+
+## 手元で動かす
+
+依存パッケージのインストールは不要。
+
+```bash
+git clone https://github.com/10001000hub/orca-learning-workshop.git
+cd orca-learning-workshop
+python3 -m http.server 8420   # Windowsでは py -m http.server 8420
+# ブラウザで http://localhost:8420/ を開く
+```
+
+`file://`で直接開くと教材ファイルの読み込みがブラウザにブロックされるため、必ずHTTPサーバー経由で開く。
+
+## 検証
+
+```bash
+node --test tests/*.test.js                                   # Node.js 18以降
+```
+
+```powershell
+powershell -NoProfile -File scripts\validate-curriculum.ps1   # Windows PowerShell 5.1
+```
+
+Pull Requestと`main`へのpushでは、GitHub Actions（`.github/workflows/ci.yml`）が同じ2つを実行する。CIはスクリプトと教材データの検査であり、Windows実機でOrcaの画面を操作した確認や初心者による通し確認の代わりにはならない。

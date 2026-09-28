@@ -16,4 +16,4 @@
 
 ## 現在の状態
 
-ORCA-001〜005のコース一覧と一本道フローを実装している。`content-loader`/`engine`はNode.js標準テストで継続検証する。完了状態はブラウザのlocalStorageへ保存する。`status: published`以外はUIが既定で拒否し、レビュー用リンクだけ明示的に許可する。
+ORCA-001〜005のコース一覧と一本道フローを実装している。`content-loader`/`engine`はNode.js標準テストで継続検証する。完了状態はブラウザのlocalStorageへ保存する。`status: published`以外の教材は、URLを直接開いた場合は既定で表示を拒否する。コース一覧から開くリンク（`allowDraft=1`付き）では、一覧と各レッスンに「下書き」「レビュー中」の表示と未検証である旨の注意を出したうえで表示する。

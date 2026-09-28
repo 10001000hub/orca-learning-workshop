@@ -36,4 +36,6 @@
 
 ## 検証
 
-`scripts/validate-curriculum.ps1` を実行し、対象教材の必須ファイル・必須項目・JSONの妥当性を確認してからPRを出すこと。
+`scripts/validate-curriculum.ps1` を実行し、対象教材の必須ファイル・必須項目・JSONの妥当性を確認してからPRを出すこと。`game/`や`tests/`を変更した場合は `node --test tests/*.test.js` も実行する。PRではGitHub Actions（`.github/workflows/ci.yml`）が同じ検査を実行する。
+
+CIの合格は、Windows実機でOrcaを操作した確認や初心者による通し確認の代わりにはならない。実機確認をしていない教材は`status: draft`のままにする。

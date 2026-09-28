@@ -1,0 +1,54 @@
+# 教材基盤の決定的な検査だけを走らせる。LLM・外部APIの呼び出し、secrets、書き込み権限、デプロイは使わない。
+# GitHub Pagesの配信は既存の pages-build-deployment（mainへのpush）が担当し、このworkflowは関与しない。
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  node-tests:
+    name: node tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      # actions/checkout v7.0.1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      # actions/setup-node v7.0.0
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 22
+      - name: node --test
+        run: node --test tests/*.test.js
+
+  validate-curriculum:
+    name: validate curriculum (Windows PowerShell 5.1)
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      # actions/checkout v7.0.1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: validate curriculum
+        shell: powershell
+        run: powershell -NoProfile -ExecutionPolicy Bypass -File scripts\validate-curriculum.ps1
+      # 検証スクリプトが壊れた教材を不合格にできることも毎回確かめる（常に合格を返す退行を防ぐ）。
+      - name: validator rejects broken fixture
+        shell: powershell
+        run: |
+          powershell -NoProfile -ExecutionPolicy Bypass -File scripts\validate-curriculum.ps1 -CurriculumPath tests\fixtures\invalid-curriculum
+          if ($LASTEXITCODE -ne 1) { Write-Error "expected exit code 1, got $LASTEXITCODE"; exit 1 }
+          Write-Host "validator rejected the broken fixture as expected"
+          exit 0

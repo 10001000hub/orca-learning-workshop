@@ -44,7 +44,7 @@ curriculumを読み込んで表示するゲーム本体。
 
 - ゲーム本体のコードに教材本文（lesson文・クイズ文言など）を直接埋め込まない。教材は必ず `curriculum/` からロードする。
 - 構成: `engine/`（ゲームロジック）, `ui/`（画面表示）, `content-loader/`（curriculumの読み込み処理）。
-- GH-001固定の試作v0を実装済み（vanilla HTML/CSS/JS、ビルドツールなし）。`status: published`以外はUIが既定で拒否し、レビュー時のみ明示的に許可する。テーマ・教材ID選択は未実装。詳細は各サブディレクトリのREADME([engine/README.md](../game/engine/README.md), [ui/README.md](../game/ui/README.md), [content-loader/README.md](../game/content-loader/README.md))を参照。
+- ORCA-001〜005のコース一覧と一本道フローを実装済み（vanilla HTML/CSS/JS、ビルドツールなし）。GH-001はURLで`theme=github&lesson=GH-001`を指定して開く。`status: published`以外の教材は、URLを直接開いた場合は既定で表示を拒否する。コース一覧から開くリンク（`allowDraft=1`付き）では、一覧と各レッスンに「下書き」「レビュー中」の表示と未検証である旨の注意を出したうえで表示する。詳細は各サブディレクトリのREADME([engine/README.md](../game/engine/README.md), [ui/README.md](../game/ui/README.md), [content-loader/README.md](../game/content-loader/README.md))を参照。
 
 ## 層をまたいだ責務分離のメリット
 

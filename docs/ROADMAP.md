@@ -45,8 +45,9 @@
 - [x] `game/ui` に最小限の表示画面を実装（試作v0）
 - この段階でもゲーム側に教材本文を直接埋め込まない設計を維持する（達成）
 - [x] ブラウザでの目視確認・操作確認（2026-07-09にlesson→quiz→workshop→doneの一連を確認）
-- [ ] テーマ・教材IDの選択UI（現状GH-001固定）
-- [x] `status: published` による読み込み制御（UIで既定拒否、レビュー時のみ明示許可）
+- [x] Orcaコース一覧からの教材選択（GH-001はURL指定のみ）
+- [x] `status: published` による読み込み制御（直接URLは既定拒否、コース一覧からは「下書き」表示付きで表示）
+- [x] GitHub ActionsでNode.jsテストと`validate-curriculum.ps1`（Windows PowerShell 5.1）を実行
 
 ## フェーズ3：複数教材の安定運用
 
